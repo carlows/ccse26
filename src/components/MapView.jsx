@@ -1,8 +1,38 @@
 import { useEffect, useState } from 'react'
-import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, Popup, useMap } from 'react-leaflet'
+import L from 'leaflet'
+import { MapContainer, TileLayer, GeoJSON, CircleMarker, Marker, Tooltip, Popup, useMap } from 'react-leaflet'
 import { CATEGORIES, REGION_SCHEMES } from '../data/places.js'
 
 const SPAIN_CENTER = [39.6, -3.6]
+
+// Nombres de las comunidades autónomas en español, situados sobre el mapa
+// para saber de un vistazo dónde está cada región (Cataluña, Andalucía…).
+const REGION_LABELS = [
+  { name: 'Galicia', lat: 42.75, lng: -7.9 },
+  { name: 'Asturias', lat: 43.25, lng: -6.0 },
+  { name: 'Cantabria', lat: 43.15, lng: -4.03 },
+  { name: 'País Vasco', lat: 43.05, lng: -2.65 },
+  { name: 'Navarra', lat: 42.65, lng: -1.6 },
+  { name: 'La Rioja', lat: 42.28, lng: -2.5 },
+  { name: 'Aragón', lat: 41.3, lng: -0.6 },
+  { name: 'Cataluña', lat: 41.85, lng: 1.6 },
+  { name: 'Castilla y León', lat: 41.7, lng: -4.9 },
+  { name: 'Comunidad de Madrid', lat: 40.6, lng: -3.95 },
+  { name: 'Extremadura', lat: 39.2, lng: -6.3 },
+  { name: 'Castilla-La Mancha', lat: 39.35, lng: -2.9 },
+  { name: 'Comunidad Valenciana', lat: 39.4, lng: -0.7 },
+  { name: 'Islas Baleares', lat: 39.65, lng: 3.0 },
+  { name: 'Región de Murcia', lat: 38.05, lng: -1.6 },
+  { name: 'Andalucía', lat: 37.5, lng: -4.7 },
+  { name: 'Canarias', lat: 28.5, lng: -15.7 },
+]
+
+const regionIcon = (name) =>
+  L.divIcon({
+    className: 'region-label',
+    html: `<span>${name}</span>`,
+    iconSize: [0, 0],
+  })
 
 // Vuela al lugar seleccionado en la lista.
 function FlyTo({ place }) {
@@ -65,6 +95,15 @@ export default function MapView({ places, regionScheme, studyMode, selectedId, s
         {geo && (
           <GeoJSON key={regionScheme} data={geo} style={styleFn} interactive={false} />
         )}
+        {REGION_LABELS.map((r) => (
+          <Marker
+            key={r.name}
+            position={[r.lat, r.lng]}
+            icon={regionIcon(r.name)}
+            interactive={false}
+            keyboard={false}
+          />
+        ))}
         {places.map((p) => {
           const cat = CATEGORIES[p.category]
           const isSel = p.id === selectedId
