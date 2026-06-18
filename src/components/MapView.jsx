@@ -55,11 +55,12 @@ export default function MapView({ places, regionScheme, studyMode, selectedId, s
   return (
     <main className="map-wrap">
       <MapContainer center={SPAIN_CENTER} zoom={6} minZoom={5} className="map" worldCopyJump>
-        {/* OpenStreetMap estándar: rotula con el nombre local (en España, en español). */}
+        {/* CARTO Voyager sin etiquetas: base limpia y sin texto en inglés.
+            Los nombres (en español) los aportan los marcadores al pasar el ratón. */}
         <TileLayer
-          attribution='&copy; colaboradores de <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-          maxZoom={19}
+          attribution='&copy; <a href="https://carto.com/">CARTO</a> · &copy; colaboradores de <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
+          maxZoom={20}
         />
         {geo && (
           <GeoJSON key={regionScheme} data={geo} style={styleFn} interactive={false} />
