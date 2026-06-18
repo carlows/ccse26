@@ -32,7 +32,8 @@ npm run build    # genera dist/
 
 ## Despliegue
 
-Automático con GitHub Actions (`.github/workflows/deploy.yml`) en cada push a `main`.
-En el repositorio, activa **Settings → Pages → Source: GitHub Actions**.
+Automático con GitHub Actions (`.github/workflows/deploy.yml`) en cada push a `main`:
+compila y publica `dist/` en la rama `gh-pages`.
+En el repositorio, activa **Settings → Pages → Deploy from a branch → `gh-pages` → `/ (root)`**.
 
 Stack: React + Vite + React-Leaflet · mapa base CARTO Voyager.
