@@ -182,8 +182,44 @@ body {
   pointer-events: none;
 }
 
+/* Tarjeta con foto al pasar el ratón */
+.leaflet-tooltip.hover-card {
+  padding: 0;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .45);
+  background: #fff;
+  width: 200px;
+}
+.leaflet-tooltip.hover-card::before { display: none; } /* sin flecha */
+.hover-card img {
+  display: block;
+  width: 200px;
+  height: 120px;
+  object-fit: cover;
+  background: #e2e8f0;
+}
+.hover-card .hover-name {
+  display: block;
+  padding: 8px 10px;
+  font-family: 'Sora', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
 /* Popups */
 .popup { min-width: 200px; }
+.popup-img {
+  display: block;
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  background: #e2e8f0;
+}
 .popup-tag {
   display: inline-block; color: #fff; font-size: 10px; font-weight: 700;
   padding: 3px 8px; border-radius: 999px; margin-bottom: 8px;

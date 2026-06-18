@@ -52,7 +52,12 @@ function PlacePopup({ place, studyMode }) {
       <span className="popup-tag" style={{ background: cat.color }}>{cat.emoji} {cat.label}</span>
       <p className="popup-q">{place.question}</p>
       {revealed ? (
-        <p className="popup-a">{place.answer}</p>
+        <>
+          {place.image && (
+            <img className="popup-img" src={place.image} alt={place.name} loading="lazy" />
+          )}
+          <p className="popup-a">{place.answer}</p>
+        </>
       ) : (
         <button className="reveal" onClick={() => setRevealed(true)}>Ver respuesta</button>
       )}
@@ -120,7 +125,10 @@ export default function MapView({ places, regionScheme, studyMode, selectedId, s
               }}
               eventHandlers={{ click: () => setSelectedId(p.id) }}
             >
-              <Tooltip direction="top" offset={[0, -6]}>{cat.emoji} {p.name}</Tooltip>
+              <Tooltip direction="top" offset={[0, -8]} className="hover-card">
+                {p.image && <img src={p.image} alt={p.name} loading="lazy" />}
+                <span className="hover-name">{cat.emoji} {p.name}</span>
+              </Tooltip>
               <Popup>
                 <PlacePopup place={p} studyMode={studyMode} />
               </Popup>
